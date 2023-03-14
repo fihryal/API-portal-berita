@@ -12,3 +12,4 @@ route::get('/posts2/{id}', [PostController::class ,'show2']);
 
 route::post('/login',[AuthenticationController::class, 'login']);
 route::get('/logout',[AuthenticationController::class, 'logout'])->middleware(['auth:sanctum']);
+route::get('/me',[AuthenticationController::class, 'me'])->middleware(['auth:sanctum']);
