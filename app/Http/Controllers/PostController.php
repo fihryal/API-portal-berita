@@ -7,6 +7,9 @@ use App\Http\Resources\DetailPostResourc;
 use Illuminate\Http\Request;
 use App\Models\post;
 use App\Http\Resources;
+use Illuminate\Support\Facades\Auth;
+
+
 use function GuzzleHttp\Promise\all;
 
 class PostController extends Controller
@@ -25,5 +28,19 @@ class PostController extends Controller
     public function show2($id){
         $post = Post::findOrFail($id);
         return new DetailPostResourc($post);
+    }
+
+    public function store(Request $request){
+        $request-> validate([
+            'title' => 'required|max:225',
+            'news_content' => 'required'
+        ]);
+
+        // return response()->json('sudah dapat di digunakan');
+        
+        $request['author'] = Auth::user()->id;
+
+        $post = Post::create($request->all());
+        return new DetailPostResourc($post->loadMissing('writer:id,username'));
     }
 }
