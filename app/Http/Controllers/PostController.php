@@ -51,8 +51,10 @@ class PostController extends Controller
             'news_content' => 'required'
         ]);
 
-        return response()->json('sudah dapat di gunakan');
+        $post = Post::findOrFail($id);
+        $post->update($request->all());
 
-        // $request['author'] = Auth::user()
+        // return response()->json('sudah dapat di gunakan');
+        return new DetailPostResourc($post->loadMissing('writer:id,username'));
     }
 }
