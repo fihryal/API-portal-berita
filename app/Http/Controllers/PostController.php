@@ -57,4 +57,13 @@ class PostController extends Controller
         // return response()->json('sudah dapat di gunakan');
         return new DetailPostResourc($post->loadMissing('writer:id,username'));
     }
+
+    public function delete($id){
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        return response()->json([
+            'message' => 'Data berhasil di hapus'
+        ]);
+    }
 }
