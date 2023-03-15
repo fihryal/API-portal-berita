@@ -18,6 +18,7 @@ class PostController extends Controller
         $posts = Post :: all();
         // return response()->json(["data" => $post]);
         return PostResourc::collection($posts);
+        // return PostResourc::collection($posts->loadMissing('writer:id,username'));
     }
 
     public function show($id){
@@ -42,5 +43,16 @@ class PostController extends Controller
 
         $post = Post::create($request->all());
         return new DetailPostResourc($post->loadMissing('writer:id,username'));
+    }
+
+    public function update(Request $request, $id){
+        $request-> validate([
+            'title' => 'required|max:225',
+            'news_content' => 'required'
+        ]);
+
+        return response()->json('sudah dapat di gunakan');
+
+        // $request['author'] = Auth::user()
     }
 }
