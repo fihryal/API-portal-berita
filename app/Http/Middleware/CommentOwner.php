@@ -20,7 +20,7 @@ class CommentOwner
         $user = Auth::user();
         $comment = Comment::findOrFail($request->id);
         
-        if ($comment->ser_id != $user->id) {
+        if ($comment->user_id != $user->id) {
             return response()->json([
                 'message' => 'data tidak ditemukan'
             ],404);
