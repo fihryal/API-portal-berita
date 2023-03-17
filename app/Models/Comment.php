@@ -21,4 +21,6 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class, 'foreign_key','id');
     }
+
+    
 }
